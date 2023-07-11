@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Local
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig"
 ]
@@ -108,6 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # User authentication model
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+# Authorization redirect url
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 
 # Internationalization
