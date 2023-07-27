@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from rest_framework import generics
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from .models import Book
+from .models import Book, Review
+from .serializers import BookSerializer, ReviewSerializer
 
 
 # Create your views here.
@@ -14,6 +16,11 @@ class BookListView(LoginRequiredMixin, ListView):
     login_url = "account_login"
 
 
+class BookListViewAPI(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
 class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Book
     context_object_name = "book"
@@ -21,6 +28,11 @@ class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     login_url = "account_login"
     permission_required = "books.special_status"
     queryset = Book.objects.all().prefetch_related('reviews__author',)
+
+
+class BookDetailViewAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all().prefetch_related('reviews__author',)
+    serializer_class = BookSerializer
 
 
 class SearchResultsListView(ListView):

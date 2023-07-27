@@ -6,4 +6,6 @@ urlpatterns = [
     path("", BookListView.as_view(), name="book_list"),
     path("<uuid:pk>/", BookDetailView.as_view(), name="book_detail"),
     path("search/", SearchResultsListView.as_view(), name="search_results"),
+    path('api/books/', BookListView.as_view(), name='book-list-api'),
+    path('api/books/<uuid:pk>/', BookDetailView.as_view(), name='book-detail-api'),
 ]
