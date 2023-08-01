@@ -5,11 +5,20 @@ from .models import Book, Review
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
-        Model = Book
-        fields = "__all__"
+        model = Book
+        fields = (
+            "id",
+            "title",
+            "author",
+            "price",
+        )
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        Model = Review
-        fields = "__all__"
+        model = Review
+        fields = (
+            "book",
+            "review",
+            "author",
+        )
